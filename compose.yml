@@ -6,9 +6,8 @@ services:
     ports:
       - "3306:3306"
 
-  rabbitmq:
+  vpromq01:                # ← CHANGE SERVICE NAME TO THIS
     image: rabbitmq:3-management
-    hostname: vpromq01
     ports:
       - "5672:5672"
       - "15672:15672"
@@ -19,4 +18,4 @@ services:
       - "1111:8080"
     depends_on:
       - devopsdb
-      - rabbitmq
+      - vpromq01
