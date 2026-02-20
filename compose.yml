@@ -1,14 +1,22 @@
----
 version: "3"
-services:
- devopsdb:
-   image: cp11640/webapp:dbimage
-   ports:
-     - "3306:3306"
 
- application:
-   image: cp11640/webapp:appimage
-   ports:
-     - "1111:8080"
-   depends_on:
-     - "devopsdb"
+services:
+  devopsdb:
+    image: cp11640/webapp:dbimage
+    ports:
+      - "3306:3306"
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    hostname: vpromq01
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  application:
+    image: cp11640/webapp:appimage
+    ports:
+      - "1111:8080"
+    depends_on:
+      - devopsdb
+      - rabbitmq
